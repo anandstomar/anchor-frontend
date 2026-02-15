@@ -110,8 +110,8 @@ export const Anchors: React.FC = () => {
                 <div className="overflow-x-auto overflow-y-auto custom-scrollbar flex-1">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-gray-50 border-b border-gray-200 text-xs text-gray-500 uppercase tracking-wider sticky top-0">
-                                <th className="p-4 font-medium">Request ID</th>
+                            <tr className="bg-gray-50 border-b border-gray-200 text-xs text-gray-500 uppercase tracking-wider sticky top-0 z-20">
+                                <th className="p-4 pl-5 font-medium">Request ID</th>
                                 <th className="p-4 font-medium">Merkle Root</th>
                                 <th className="p-4 font-medium">Status</th>
                                 <th className="p-4 font-medium">Submitter</th>
@@ -119,20 +119,24 @@ export const Anchors: React.FC = () => {
                                 <th className="p-4 font-medium text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100 text-sm">
+                        <tbody className="text-sm">
                             {MOCK_ANCHORS.map((anchor) => (
                                 <tr 
                                     key={anchor.requestId} 
                                     onClick={() => setSelectedAnchor(anchor)}
-                                    className={`group hover:bg-blue-50/50 cursor-pointer transition-colors ${selectedAnchor?.requestId === anchor.requestId ? 'bg-blue-50' : ''}`}
+                                    className={`group border-b border-[#f1f0ee] last:border-0 cursor-pointer transition-all duration-200 ease-in-out relative
+                                        ${selectedAnchor?.requestId === anchor.requestId 
+                                            ? 'bg-[#f4f2f0] border-l-4 border-l-[#BE3F2F]' 
+                                            : 'hover:bg-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)] hover:z-10 border-l-4 border-l-transparent'
+                                        }`}
                                 >
-                                    <td className="p-4 font-medium text-gray-900">{anchor.requestId}</td>
+                                    <td className="p-4 pl-4 font-medium text-gray-900">{anchor.requestId}</td>
                                     <td className="p-4 text-gray-500 font-mono text-xs">{anchor.merkleRoot}</td>
                                     <td className="p-4"><Badge status={anchor.status} /></td>
                                     <td className="p-4 text-gray-600">{anchor.submitter}</td>
                                     <td className="p-4 text-gray-500">{new Date(anchor.submittedAt).toLocaleTimeString()}</td>
                                     <td className="p-4 text-right">
-                                        <button className="p-1.5 text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-all">
+                                        <button className="p-1.5 text-[#8c8b88] hover:text-[#1f1e1d] rounded-md hover:bg-white opacity-0 group-hover:opacity-100 transition-all shadow-sm border border-transparent hover:border-[#d6d3d0]">
                                             <MoreVertical size={16} />
                                         </button>
                                     </td>
@@ -141,7 +145,7 @@ export const Anchors: React.FC = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="p-3 border-t border-gray-200 flex justify-between items-center text-xs text-gray-500 bg-gray-50">
+                <div className="p-3 border-t border-gray-200 flex justify-between items-center text-xs text-gray-500 bg-gray-50 z-30 relative">
                      <span>Showing 1-15 of 1240</span>
                      <div className="flex gap-1">
                          <button onClick={() => setToast("Loaded previous page")} className="px-2 py-1 rounded border border-gray-200 bg-white hover:bg-gray-50">Prev</button>
@@ -171,17 +175,17 @@ export const Anchors: React.FC = () => {
                             <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Processing Timeline</h4>
                             <div className="space-y-4 pl-2 border-l-2 border-gray-100">
                                 <div className="relative pl-4">
-                                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white" />
+                                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white" />
                                     <p className="text-sm font-medium">Ingest Accepted</p>
                                     <p className="text-xs text-gray-400">10:00:01 AM</p>
                                 </div>
                                 <div className="relative pl-4">
-                                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white" />
+                                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white" />
                                     <p className="text-sm font-medium">Validated</p>
                                     <p className="text-xs text-gray-400">10:00:02 AM</p>
                                 </div>
                                 <div className="relative pl-4">
-                                    <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-white ${selectedAnchor.status === Status.FAILED ? 'bg-red-500' : 'bg-green-500'}`} />
+                                    <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-white ${selectedAnchor.status === Status.FAILED ? 'bg-red-500' : 'bg-emerald-500'}`} />
                                     <p className="text-sm font-medium">Anchored on Solana</p>
                                     <p className="text-xs text-gray-400">10:01:15 AM</p>
                                     {selectedAnchor.txHash && (

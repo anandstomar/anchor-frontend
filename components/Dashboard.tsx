@@ -19,9 +19,9 @@ const dataHourly = [
 ];
 
 const dataStatus = [
-  { name: 'Success', value: 85, color: '#10b981' },
-  { name: 'Failed', value: 5, color: '#ef4444' },
-  { name: 'Pending', value: 10, color: '#f59e0b' },
+  { name: 'Success', value: 85, color: '#10b981' }, // Emerald-500
+  { name: 'Failed', value: 5, color: '#ef4444' },  // Red-500
+  { name: 'Pending', value: 10, color: '#64748b' }, // Slate-500 (Matches new Badge Pending)
 ];
 
 const dataSubmitters = [
