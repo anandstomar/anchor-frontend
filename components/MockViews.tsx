@@ -51,13 +51,18 @@ const SectionHeader = ({ title, action }: { title: string, action?: React.ReactN
     </div>
 );
 
-const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+// Fix: Use interface with optional children and React.FC to properly support 'key' prop and optional children in JSX
+interface CardProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+const Card: React.FC<CardProps> = ({ children, className = "" }) => (
     <div className={`bg-white border border-[#e0e0dc] rounded-sm shadow-[0_2px_6px_rgba(0,0,0,0.03)] ${className}`}>
         {children}
     </div>
 );
 
-// Distinct input style for Enterprise theme (more distinct border, specific focus state)
 const formInputClass = "w-full bg-[#fcfbf9] border border-[#d6d3d0] rounded px-3 py-2.5 text-sm text-[#1f1e1d] placeholder-[#a8a29e] focus:outline-none focus:ring-1 focus:ring-[#BE3F2F] focus:border-[#BE3F2F] transition-all shadow-inner";
 const btnPrimary = "px-4 py-2 bg-[#BE3F2F] text-white text-sm font-medium rounded shadow-sm hover:bg-[#a33224] transition-colors";
 const btnSecondary = "px-4 py-2 bg-white border border-[#d6d3d0] text-[#5d5c58] text-sm font-medium rounded hover:bg-[#fbfbfa] transition-colors";

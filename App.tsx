@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Dashboard } from './components/Dashboard';
 import { Anchors } from './components/Anchors';
@@ -8,8 +8,11 @@ import {
   Notifications, Settings 
 } from './components/MockViews';
 import { ChatAssistant } from './components/ChatAssistant';
+import { Login, Signup } from './components/Auth';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   // Global keyboard shortcut for search (Cmd/Ctrl + K)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -26,7 +29,11 @@ export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
+        <Route path="/signup" element={<Signup onLogin={() => setIsAuthenticated(true)} />} />
+        
+        {/* Protected Routes */}
+        <Route path="/" element={isAuthenticated ? <Layout onLogout={() => setIsAuthenticated(false)} /> : <Navigate to="/login" replace />}>
           <Route index element={<Dashboard />} />
           <Route path="anchors" element={<Anchors />} />
           <Route path="ingest" element={<Ingest />} />
@@ -38,7 +45,7 @@ export default function App() {
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
-      <ChatAssistant />
+      {isAuthenticated && <ChatAssistant />}
     </HashRouter>
   );
 }

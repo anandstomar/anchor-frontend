@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, Anchor, UploadCloud, CheckSquare, Calendar, 
-  BarChart2, Bell, Settings, Menu, Search as SearchIcon, User
+  BarChart2, Bell, Settings, Menu, Search as SearchIcon, User, LogOut
 } from 'lucide-react';
 import { NavItem } from '../types';
 import { SmartSearch } from './SmartSearch';
@@ -20,7 +20,11 @@ const NAV_ITEMS: NavItem[] = [
   { id: '8', label: 'Notifications', icon: Bell, path: '/notifications' },
 ];
 
-export const Layout: React.FC = () => {
+interface LayoutProps {
+  onLogout?: () => void;
+}
+
+export const Layout: React.FC<LayoutProps> = ({ onLogout }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
@@ -83,6 +87,15 @@ export const Layout: React.FC = () => {
               <User size={20} strokeWidth={2} />
               {!collapsed && <span className="text-sm font-medium">Profile</span>}
            </NavLink>
+
+           <button 
+             onClick={onLogout}
+             className={`w-full flex items-center gap-3 px-4 py-3 rounded-md transition-all text-[#5d5c58] hover:bg-[#fcfbf9] hover:text-[#BE3F2F]`}
+             title="Log Out"
+           >
+              <LogOut size={20} strokeWidth={2} />
+              {!collapsed && <span className="text-sm font-medium">Log Out</span>}
+           </button>
 
            <button 
              onClick={() => setCollapsed(!collapsed)}
