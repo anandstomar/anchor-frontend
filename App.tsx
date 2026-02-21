@@ -7,6 +7,7 @@ import {
   Ingest, Validator, Scheduler, SearchPage, Analytics, 
   Notifications, Settings 
 } from './components/MockViews';
+import { EscrowList } from './components/EscrowCard';
 import { ChatAssistant } from './components/ChatAssistant';
 import { Login, Signup } from './components/Auth';
 
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/" element={isAuthenticated ? <Layout onLogout={() => setIsAuthenticated(false)} /> : <Navigate to="/login" replace />}>
           <Route index element={<Dashboard />} />
           <Route path="anchors" element={<Anchors />} />
+          <Route path="escrow" element={<EscrowList />} />
           <Route path="ingest" element={<Ingest />} />
           <Route path="validator" element={<Validator />} />
           <Route path="scheduler" element={<Scheduler />} />
